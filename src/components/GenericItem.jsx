@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
+import Icon from './Icon';
 
-function GenericItem({id, icon, text, specializedBeforeIcon=null, specializedAfterIcon=null, specializedAfterText=null,}) {
-    return <div className="genericItem">
+function GenericItem({id, icon="", text, specializedBeforeIcon=null, specializedAfterIcon=null, specializedAfterText=null, defaultClassName="genericItem"}) {
+    return <div className={defaultClassName}>
         {specializedBeforeIcon}
-        {icon}
+        {icon !== "" ? <Icon iconName={icon} /> : ""}
         {specializedAfterIcon}
-        <span className="genericItemtext">{text}</span>
+        <p className="genericItemtext">{text}</p>
         {specializedAfterText}
     </div>
 }

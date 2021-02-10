@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import GenericItem from "./GenericItem";
+import Icon from './Icon';
 
-function GenericList({list, title="", className="", defaultClassName="genericList", 
+function GenericList({list, title="", className="", defaultClassName="genericList", icon="fa-certificate",
                         itemTemplate=list.map(item => {return (<GenericItem key={item.id} id={item.id} icon={item.icon} text={item.text}/>);})}) {
     return <div className={defaultClassName + (className === "" ? "" : " " + className)}>
-        {title === "" ? "" : <h1>{title}</h1>}
+        {title === "" ? "" : <h2><Icon iconName={icon} />{title}</h2>}
         {itemTemplate}
     </div>;
 }
