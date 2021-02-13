@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import GenericList from "./GenericList";
-import HistoryItem from "./HistoryItem";
+import GenericItem from "./GenericItem";
 import Icon from './Icon';
 
 function HistoryList({list, title="", className="", icon="fa-certificate"}) {
     
-    return <GenericList list={list} title={title} className={className} defaultClassName={"historyList"} icon={icon} itemTemplate= {
+    function formatDate(d) {
+        const to2Number = (i) => i < 10 ? "0" + i : i;
+        return to2Number(d.getDate())  + "/" + to2Number(d.getMonth()+1) + "/" + d.getFullYear();
+    }
+
+    return <GenericList list={list} title={title} className={className} defaultClassName={"historyList"} icon={icon} itemTemplate= {        
         list.map((item, index, list) => {
             const hr = index !== list.length - 1 ? <hr/> : "";
             const downloadIcon = 
@@ -18,8 +23,12 @@ function HistoryList({list, title="", className="", icon="fa-certificate"}) {
                 </div>
             ;
 
+            
+
             return (
-                <HistoryItem key={item.id} id={item.id} icon={item.icon} text={item.text} beginDate={item.beginDate} endDate={item.endDate} specializedAfterText={[downloadIcon, hr]}
+                <GenericItem key={item.id} id={item.id} icon={item.icon == null ? "fa-calendar" : icon} text={item.text} beginDate={item.beginDate} endDate={item.endDate} specializedAfterText={[downloadIcon, hr]} specializedAfterIcon={
+                    <span className="historyItemDate">{formatDate(item.beginDate)} - {formatDate(item.endDate)}</span>
+                }
                 />
             );
         })  
